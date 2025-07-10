@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 // Use direct Pixabay and Pexels links for hero backgrounds
@@ -13,23 +13,24 @@ function Home() {
   const [showSlideInfo, setShowSlideInfo] = useState(false);
   const [heroBgIdx, setHeroBgIdx] = useState(0);
   const [panDirection, setPanDirection] = useState("top-bottom");
+  const autoSlideTimerRef = useRef(null);
 
   useEffect(() => {
     setAnimateHero(true);
   }, []);
 
-  // Alternate hero background and pan direction
+  // Alternate hero background and pan direction - increased delay for better performance
   useEffect(() => {
     const interval = setInterval(() => {
       setHeroBgIdx((prev) => (prev + 1) % HERO_BACKGROUNDS.length);
       setPanDirection((prev) => (prev === "top-bottom" ? "bottom-top" : "top-bottom"));
-    }, 7000);
+    }, 12000); // Increased from 7000ms to 12000ms
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
     setShowSlideInfo(false);
-    const infoTimer = setTimeout(() => setShowSlideInfo(true), 700);
+    const infoTimer = setTimeout(() => setShowSlideInfo(true), 1000); // Increased from 700ms to 1000ms
     return () => clearTimeout(infoTimer);
   }, [currentSlide]);
 
@@ -66,23 +67,47 @@ function Home() {
     }
   ];
 
+  // Auto-slide timer with reset functionality
   useEffect(() => {
-    const timer = setInterval(() => {
+    // Clear existing timer
+    if (autoSlideTimerRef.current) {
+      clearInterval(autoSlideTimerRef.current);
+    }
+    
+    // Start new timer
+    autoSlideTimerRef.current = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-    return () => clearInterval(timer);
+    }, 8000);
+    
+    return () => {
+      if (autoSlideTimerRef.current) {
+        clearInterval(autoSlideTimerRef.current);
+      }
+    };
   }, [slides.length]);
+
+  const resetAutoSlideTimer = () => {
+    if (autoSlideTimerRef.current) {
+      clearInterval(autoSlideTimerRef.current);
+    }
+    autoSlideTimerRef.current = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 8000);
+  };
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
+    resetAutoSlideTimer();
   };
 
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    resetAutoSlideTimer();
   };
 
   const goToSlide = (index) => {
     setCurrentSlide(index);
+    resetAutoSlideTimer();
   };
 
   // Pan animation class

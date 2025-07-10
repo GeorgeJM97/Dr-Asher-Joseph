@@ -422,6 +422,9 @@ body {
 .slider-track {
   display: flex;
   transition: transform 0.5s ease;
+  will-change: transform;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .slide {
@@ -1486,9 +1489,12 @@ body {
   justify-content: center;
   position: relative;
   padding: 0;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: background-position;
 }
 
-/* Slider Info Box Animation */
+/* Slider Info Box Animation - Safari optimized */
 .slide-info-box {
   position: absolute;
   top: 0;
@@ -1502,10 +1508,14 @@ body {
   transform: translateX(-40px);
   transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
   pointer-events: none;
+  will-change: opacity, transform;
+  -webkit-transform: translate3d(-40px, 0, 0);
+  transform: translate3d(-40px, 0, 0);
 }
 .slide-info-visible {
   opacity: 1;
-  transform: translateX(0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
   pointer-events: auto;
 }
 .slide-content-left {
@@ -1571,18 +1581,32 @@ body {
   max-width: 520px;
 }
 
-/* Hero background pan animation */
+/* Hero background pan animation - Safari optimized */
 .hero-pan-top-bottom {
   animation: heroPanTopBottom 7s linear infinite alternate;
+  will-change: background-position;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 .hero-pan-bottom-top {
   animation: heroPanBottomTop 7s linear infinite alternate;
+  will-change: background-position;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 @keyframes heroPanTopBottom {
   0% { background-position: center top; }
   100% { background-position: center bottom; }
 }
+@-webkit-keyframes heroPanTopBottom {
+  0% { background-position: center top; }
+  100% { background-position: center bottom; }
+}
 @keyframes heroPanBottomTop {
+  0% { background-position: center bottom; }
+  100% { background-position: center top; }
+}
+@-webkit-keyframes heroPanBottomTop {
   0% { background-position: center bottom; }
   100% { background-position: center top; }
 }
@@ -1634,5 +1658,21 @@ body {
     padding: 1.2rem 1rem;
     max-width: 95vw;
     text-align: center;
+  }
+}
+
+/* Safari-specific optimizations */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .hero-pan-top-bottom,
+  .hero-pan-bottom-top {
+    animation-duration: 10s; /* Slower animation for Safari */
+  }
+  
+  .slider-track {
+    transition-duration: 0.7s; /* Slightly slower transition */
+  }
+  
+  .slide-info-box {
+    transition-duration: 1s; /* Slower slide info animation */
   }
 }
