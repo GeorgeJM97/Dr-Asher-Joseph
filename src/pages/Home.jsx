@@ -37,13 +37,13 @@ function Home() {
   const slides = [
     {
       id: 1,
-      image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1920&q=80",
+      image: "https://images.unsplash.com/photo-1736325680503-6e0c7d9a45da?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       title: "Limited Access Cardiac Surgery",
       description: "Minimally invasive approach with smaller incisions and faster recovery. Specialized in the Otaki Technique for very small aortic root cases."
     },
     {
       id: 2,
-      image: "https://images.unsplash.com/photo-1511174511562-5f97f4f4e0c8?auto=format&fit=crop&w=1920&q=80",
+      image: "https://plus.unsplash.com/premium_photo-1702598804759-8fb687f774fb?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       title: "Heart Transplantation & Mechanical Support",
       description: "Life-saving heart transplantation procedures with advanced mechanical circulatory support including ECMO for end-stage heart failure."
     },
@@ -55,7 +55,7 @@ function Home() {
     },
     {
       id: 4,
-      image: "https://images.unsplash.com/photo-1666266606906-6b6b6b6b6b6b?auto=format&fit=crop&w=1200&q=80",
+      image: "https://plus.unsplash.com/premium_photo-1664304442200-71a49a7357ee?q=80&w=2273&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       title: "Pediatric Cardiac Surgery",
       description: "Specialized care for congenital heart defects including Tetralogy of Fallot repair and pulmonary valve augmentation techniques."
     },
@@ -122,8 +122,36 @@ function Home() {
           backgroundImage: `linear-gradient(rgba(20, 20, 20, 0.7), rgba(20, 20, 20, 0.7)), url('${HERO_BACKGROUNDS[heroBgIdx]}')`
         }}
       >
-        <div className="hero-flex-row same-size-row" style={{ display: 'flex', alignItems: 'stretch', justifyContent: 'center', gap: '32px', width: '100%', maxWidth: '1100px', margin: '0 auto', padding: '40px 0' }}>
-          <div className={`hero-overlay-box left ${animateHero ? "hero-animate" : ""}`} style={{ flex: 1, minWidth: 0, minHeight: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%', boxSizing: 'border-box' }}>
+        <div className="hero-flex-row same-size-row"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '120px', // more horizontal space
+            width: '100%',
+            maxWidth: '1200px',
+            margin: '0 auto',
+            padding: '40px 0',
+            height: '600px', // bigger
+            minHeight: '400px',
+          }}
+        >
+          <div
+            className={`hero-overlay-box left ${animateHero ? "hero-animate" : ""}`}
+            style={{
+              flex: 1,
+              minWidth: '380px', // bigger
+              maxWidth: '560px', // bigger
+              minHeight: 0,
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'flex-start',
+              boxSizing: 'border-box',
+              background: 'rgba(0,0,0,0.0)'
+            }}
+          >
             <div className="hero-subtitle-ref">CARDIOTHORACIC SURGEON</div>
             <h1 className="hero-title-ref">DR. ASHER GEORGE JOSEPH</h1>
             <div className="hero-desc-ref">
@@ -135,11 +163,34 @@ function Home() {
               <Link to="/contact" className="btn-ref btn-green">GET IN TOUCH NOW →</Link>
             </div>
           </div>
-          <div className="hero-image-right same-size-box" style={{ flex: 1, minWidth: 0, minHeight: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+          <div
+            className="hero-image-right same-size-box"
+            style={{
+              flex: 1,
+              minWidth: '380px', // bigger
+              maxWidth: '560px', // bigger
+              minHeight: 0,
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             <img
               src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=600&q=80"
               alt="Doctor in surgical gear"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '18px', aspectRatio: '4/5', maxWidth: '420px', maxHeight: '520px', minHeight: '340px', minWidth: '220px', boxShadow: '0 4px 32px rgba(0,0,0,0.12)' }}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                borderRadius: '18px',
+                aspectRatio: '4/5',
+                maxWidth: '480px', // slightly bigger
+                maxHeight: '580px', // slightly bigger
+                minHeight: '340px',
+                minWidth: '220px',
+                boxShadow: '0 4px 32px rgba(0,0,0,0.12)'
+              }}
             />
           </div>
         </div>
